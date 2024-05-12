@@ -54,3 +54,14 @@ Esta pregunta permite explorar varios aspectos de los datos:
   
 #### Frecuencia de actualización de los datos
 Los datos se actualizan semanalmente cada lunes para incorporar los incidentes nuevos y las modificaciones a los registros existentes. Esto asegura que la base de datos refleje los cambios más recientes y las correcciones realizadas durante la investigación policial.
+
+# Carga inicial de datos
+### Base de datos
+
+Para insertar los datos en bruto se debe primero correr el script `raw_data_schema_creation.sql` y posteriormente ejecutar el siguiente comando en una sesión de línea de comandos de Postgres.
+
+```sql
+\copy
+    raw.crime_data (dr_no, date_rptd, date_occ, time_occ, area, area_name, rpt_dist_no, part_1_2, crm_cd, crm_cd_desc, mocodes, vict_age, vict_sex, vict_descent, premis_cd, premis_desc, weapon_used_cd, weapon_desc, status, status_desc, crm_cd_1, crm_cd_2, crm_cd_3, crm_cd_4, location, cross_street, lat, lon)
+    FROM 'path_to_downloaded_csv'
+    WITH (FORMAT CSV, HEADER true, DELIMITER ',');
