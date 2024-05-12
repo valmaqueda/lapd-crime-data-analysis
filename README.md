@@ -20,7 +20,7 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
    - [Ejemplo: Generar metadatos de predicción](#ejemplo-generar-metadatos-de-predicción)
 10. [Creación de atributos para entrenamiento de modelos](#pruebas-unitarias)
 
-#Proyecto    
+# Proyecto    
 ### Integrantes del equipo:
 - Valeria Anahí Andrade Maqueda
 - Fernando Villalobos Betancourt
