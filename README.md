@@ -34,11 +34,11 @@ La base de datos de incidentes criminales de Los Ángeles recoge información de
 
 A continuación, se describen las columnas clave que conforman este conjunto de datos:
 
--Identificadores y fechas: Cada incidente está documentado con un número de reporte único (DR_NO), además de la fecha y hora en que se reportó y ocurrió el crimen.
--Ubicación y área: Los datos incluyen información geográfica detallada como el área de la estación de policía responsable (AREA y AREA NAME), así como la ubicación específica del crimen (LOCATION, Cross Street, LAT, LON).
+- Identificadores y fechas: Cada incidente está documentado con un número de reporte único (DR_NO), además de la fecha y hora en que se reportó y ocurrió el crimen.
+- Ubicación y área: Los datos incluyen información geográfica detallada como el área de la estación de policía responsable (AREA y AREA NAME), así como la ubicación específica del crimen (LOCATION, Cross Street, LAT, LON).
 Detalles del crimen: Los tipos de crímenes están clasificados por códigos específicos (Crm Cd, Crm Cd Desc), junto con descripciones del modus operandi (Mocodes) y el tipo de premisa donde ocurrió el incidente (Premis Cd, Premis Desc).
--Información sobre las víctimas y armas: Se documenta la edad, sexo y ascendencia de las víctimas (Vict Age, Vict Sex, Vict Descent), así como los detalles de cualquier arma utilizada (Weapon Used Cd, Weapon Desc).
--Estado del caso: Cada registro incluye el estado actual del caso (Status, Status Desc) y los códigos adicionales de crímenes reportados en el mismo incidente (Crm Cd 1, Crm Cd 2, Crm Cd 3, Crm Cd 4).
+- Información sobre las víctimas y armas: Se documenta la edad, sexo y ascendencia de las víctimas (Vict Age, Vict Sex, Vict Descent), así como los detalles de cualquier arma utilizada (Weapon Used Cd, Weapon Desc).
+- Estado del caso: Cada registro incluye el estado actual del caso (Status, Status Desc) y los códigos adicionales de crímenes reportados en el mismo incidente (Crm Cd 1, Crm Cd 2, Crm Cd 3, Crm Cd 4).
 
 #### Frecuencia de actualización de los datos
 Los datos se actualizan semanalmente cada lunes para incorporar los incidentes nuevos y las modificaciones a los registros existentes. Esto asegura que la base de datos refleje los cambios más recientes y las correcciones realizadas durante la investigación policial.
