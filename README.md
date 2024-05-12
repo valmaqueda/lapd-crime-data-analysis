@@ -40,5 +40,17 @@ Detalles del crimen: Los tipos de crímenes están clasificados por códigos esp
 - Información sobre las víctimas y armas: Se documenta la edad, sexo y ascendencia de las víctimas (Vict Age, Vict Sex, Vict Descent), así como los detalles de cualquier arma utilizada (Weapon Used Cd, Weapon Desc).
 - Estado del caso: Cada registro incluye el estado actual del caso (Status, Status Desc) y los códigos adicionales de crímenes reportados en el mismo incidente (Crm Cd 1, Crm Cd 2, Crm Cd 3, Crm Cd 4).
 
+#### Pregunta analítica a contestar
+¿Cómo varían los tipos de crímenes en diferentes áreas de Los Ángeles y en diferentes momentos del año, y qué factores podrían predecir estas variaciones?
+
+Esta pregunta permite explorar varios aspectos de los datos:
+
+- Análisis temporal: Analizar cómo la incidencia de diferentes tipos de crímenes (robos, asaltos, etc.) varía a lo largo del año. Por ejemplo, resulta interesarte saber si ciertos crímenes aumentan durante los meses de verano o durante las temporadas festivas.
+
+- Análisis geográfico: Investigar cómo los crímenes se distribuyen entre diferentes áreas y barrios de Los Ángeles. Esto puede incluir la identificación de zonas con mayor incidencia de crímenes particulares y cómo estos patrones cambian con el tiempo.
+
+- Factores predictivos: Examinar qué variables (como el horario del crimen, la localización, el tipo de premisa, etc.) están más fuertemente asociadas con diferentes tipos de crímenes. Esto puede ayudarte a construir un modelo predictivo que podría anticipar la ocurrencia de ciertos crímenes basándose en estos factores.
+
+  
 #### Frecuencia de actualización de los datos
 Los datos se actualizan semanalmente cada lunes para incorporar los incidentes nuevos y las modificaciones a los registros existentes. Esto asegura que la base de datos refleje los cambios más recientes y las correcciones realizadas durante la investigación policial.
