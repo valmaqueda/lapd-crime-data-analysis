@@ -20,7 +20,7 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
    - [Ejemplo: Generar metadatos de predicción](#ejemplo-generar-metadatos-de-predicción)
 10. [Creación de atributos para entrenamiento de modelos](#pruebas-unitarias)
 
-    
+#Proyecto    
 ### Integrantes del equipo:
 - Valeria Anahí Andrade Maqueda
 - Fernando Villalobos Betancourt
@@ -31,3 +31,9 @@ La base de datos de incidentes criminales de Los Ángeles recoge información de
 #### Información general de la base de datos:
 - 925,721 renglones (cada fila es una inspección realizada)
 - 28 columnas
+
+#### Frecuencia de actualización de los datos
+Frecuencia de Actualización de los Datos
+La base de datos de incidentes criminales de Los Ángeles se actualiza de manera sistemática para garantizar la precisión y la actualidad de la información que ofrece:
+
+Actualizaciones Regulares: Los datos se actualizan semanalmente cada lunes para incorporar los incidentes nuevos y las modificaciones a los registros existentes. Esto asegura que la base de datos refleje los cambios más recientes y las correcciones realizadas durante la investigación policial.
