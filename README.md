@@ -26,8 +26,8 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
 La base de datos de incidentes criminales de Los Ángeles recoge información detallada sobre los sucesos registrados en la ciudad desde el año 2020 hasta la fecha actual. Esta base de datos se utiliza para comprender mejor las tendencias criminales, informar las políticas de seguridad pública, y dirigir los recursos policiales de manera más efectiva. Esta se encuentra en [este link](https://catalog.data.gov/dataset/crime-data-from-2020-to-present).
 
 #### Información general de la base de datos:
-- 925,721 renglones (cada fila es una inspección realizada)
-- 26 columnas
+- 925,720 renglones (cada fila es una inspección realizada)
+- 28 columnas
 
 #### Análisis Preliminar
 A continuación, se describen las columnas clave que conforman este conjunto de datos:
