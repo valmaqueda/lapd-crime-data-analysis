@@ -148,7 +148,7 @@ INSERT INTO cleaning.vict_descent (code, description) VALUES
 ('C', 'Asian'),
 ('A', 'South Asian'),
 ('K', 'Korean'),
-('F', 'Filipino),
+('F', 'Filipino'),
 ('X', 'Not Specified');
 
 -- Asegurar que todos los registros tengan un código válido, reemplazar vacíos con 'X'
