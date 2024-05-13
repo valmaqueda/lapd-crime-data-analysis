@@ -7,7 +7,7 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
    - [Descripción de los datos](#descripción-de-los-datos)
    - [Pregunta analítica a contestar](#pregunta-analítica-a-contestar)
    - [Frecuencia de actualización de los datos](#frecuencia-de-actualización-de-los-datos)
-2. [Carga inicial de datos](#configuración)
+2. [Carga inicial de datos](#carga-inicial-de-datos)
    - [Base de datos](#base-de-datos)
 3. [Estructura del proyecto](#estructura-del-proyecto)
 4. [Carga inicial y análisis preliminar](#levantamiento-del-producto-de-datos)
