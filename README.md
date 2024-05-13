@@ -60,7 +60,7 @@ Para insertar los datos en bruto se debe primero correr el script `raw_data_sche
 
 ```sql
 \copy
-    raw.crime_data (dr_no, date_rptd, date_occ, time_occ, area, area_name, rpt_dist_no, part_1_2, crm_cd, crm_cd_desc, mocodes, vict_age, vict_sex, vict_descent, premis_cd, premis_desc, weapon_used_cd, weapon_desc, status, status_desc, crm_cd_1, crm_cd_2, crm_cd_3, crm_cd_4, location, cross_street, lat, lon)
+    raw.crime_data (DR_NO, DATE_RPTD, DATE_OCC, TIME_OCC, AREA, AREA_NAME, RPT_DIST_NO, PART_1_2, CRM_CD, CRM_CD_DESC, MOCODES, VICT_AGE, VICT_SEX, VICT_DESCENT, PREMIS_CD, PREMIS_DESC, WEAPON_USED_CD, WEAPON_DESC, STATUS, STATUS_DESC, CRM_CD_1, CRM_CD_2, CRM_CD_3, CRM_CD_4, LOCATION, CROSS_STREET, LAT, LON)
     FROM 'path_to_downloaded_csv'
     WITH (FORMAT CSV, HEADER true, DELIMITER ',');
 ```
