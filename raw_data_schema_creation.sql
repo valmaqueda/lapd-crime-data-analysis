@@ -28,6 +28,8 @@ CREATE TABLE raw.crime_data (
     status_desc VARCHAR(100),
     crm_cd_1 INT,
     crm_cd_2 INT,
+    crm_cd_3 INT,
+    crm_cd_4 INT,
     location VARCHAR(255),
     cross_street VARCHAR(255),
     lat FLOAT,
