@@ -219,14 +219,121 @@ WHERE "Weapon Used Cd" IS NULL AND "Weapon Desc" IS NULL;
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de Status & Status Desc
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Creación de la tabla de códigos de localización
+CREATE TABLE cleaning.premis_codes (
+    premis_code INT PRIMARY KEY,
+    description VARCHAR(255)
+);
 
+-- Insertar los códigos y descripciones de localización
+INSERT INTO cleaning.premis_codes (premis_code, description) VALUES
+(101, 'STREET'),
+(128, 'BUS STOP/LAYOVER'),
+(502, 'MULTI-UNIT DWELLING (APARTMENT, DUPLEX, ETC)'),
+(405, 'CLOTHING STORE'),
+(102, 'SIDEWALK'),
+(501, 'SINGLE FAMILY DWELLING'),
+(248, 'CELL PHONE STORE'),
+(750, 'CYBERSPACE'),
+(203, 'OTHER BUSINESS'),
+(108, 'PARKING LOT'),
+(751, 'WEBSITE'),
+(605, 'AUTOMATED TELLER MACHINE (ATM)'),
+(504, 'OTHER RESIDENCE'),
+(404, 'DEPARTMENT STORE'),
+(221, 'PUBLIC STORAGE'),
+(707, 'GARAGE/CARPORT'),
+(209, 'EQUIPMENT RENTAL'),
+(726, 'POLICE FACILITY'),
+(702, 'OFFICE BUILDING/OFFICE'),
+(801, 'MTA BUS'),
+(729, 'SPECIALTY SCHOOL/OTHER'),
+(737, 'SKATING RINK'),
+(602, 'BANK'),
+(720, 'JUNIOR HIGH SCHOOL'),
+(124, 'BUS STOP'),
+(103, 'ALLEY'),
+(122, 'VEHICLE, PASSENGER/TRUCK'),
+(116, 'OTHER/OUTSIDE'),
+(506, 'ABANDONED BUILDING ABANDONED HOUSE'),
+(212, 'TRANSPORTATION FACILITY (AIRPORT)'),
+(505, 'MOTEL'),
+(701, 'HOSPITAL'),
+(710, 'OTHER PREMISE'),
+(120, 'STORAGE SHED'),
+(145, 'MAIL BOX'),
+(735, 'NIGHT CLUB (OPEN EVENINGS ONLY)'),
+(503, 'HOTEL'),
+(104, 'DRIVEWAY'),
+(222, 'LAUNDROMAT'),
+(119, 'PORCH, RESIDENTIAL'),
+(406, 'OTHER STORE');
 
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Limpieza de Status y Status Desc
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Creación de la tabla de códigos de estado
+CREATE TABLE cleaning.status_codes (
+    status_code CHAR(2) PRIMARY KEY,
+    description VARCHAR(255)
+);
 
+-- Insertar los códigos y descripciones de estado
+INSERT INTO cleaning.status_codes (status_code, description) VALUES
+('AA', 'Adult Arrest'),
+('IC', 'Invest Cont'),
+('JA', 'Juv Arrest'),
+('AO', 'Adult Other');
+
+-- Actualizar registros donde no hay descripción de estado
+UPDATE raw.crime_data
+SET "Status Desc" = (
+    SELECT description
+    FROM cleaning.status_codes
+    WHERE status_code = raw.crime_data."Status"
+)
+WHERE "Status Desc" IS NULL AND "Status" IS NOT NULL;
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Limpieza de Crm Cd 2
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Actualizar 'Crm Cd 2' para establecer -1 donde no hay registro
+UPDATE raw.crime_data
+SET "Crm Cd 2" = COALESCE("Crm Cd 2", -1)
+WHERE "Crm Cd 2" IS NULL;
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de LOCATION
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Actualizar 'LOCATION' para eliminar espacios extras y estandarizar la escritura
+UPDATE raw.crime_data
+SET "LOCATION" = REGEXP_REPLACE(TRIM("LOCATION"), '\s+', ' ', 'g');
+
+-- Adicionalmente, para estandarizar partes comunes de direcciones
+UPDATE raw.crime_data
+SET "LOCATION" = REGEXP_REPLACE("LOCATION", 'AV$', 'Ave', 'g')
+WHERE "LOCATION" LIKE '%AV';
+
+UPDATE raw.crime_data
+SET "LOCATION" = REGEXP_REPLACE("LOCATION", 'ST$', 'St', 'g')
+WHERE "LOCATION" LIKE '%ST';
+
+UPDATE raw.crime_data
+SET "LOCATION" = REGEXP_REPLACE("LOCATION", 'DR$', 'Dr', 'g')
+WHERE "LOCATION" LIKE '%DR';
+
+-- Considerar también normalizar las orientaciones si necesario
+UPDATE raw.crime_data
+SET "LOCATION" = REGEXP_REPLACE("LOCATION", '\b(W|S|E|N)\b', '', 'g');
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de Cross Street
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Actualizar 'Cross Street' para eliminar espacios extras
+UPDATE raw.crime_data
+SET "Cross Street" = REGEXP_REPLACE(TRIM("Cross Street"), '\s+', ' ', 'g');
+
+-- Establecer un valor por defecto para registros vacíos
+UPDATE raw.crime_data
+SET "Cross Street" = COALESCE(NULLIF(TRIM("Cross Street"), ''), 'Not Specified')
+WHERE "Cross Street" IS NULL OR "Cross Street" = '';
