@@ -81,7 +81,7 @@ La normalización hasta la cuarta forma normal incluye varios pasos clave diseñ
 
 A continuación, se presentan las definiciones de las tablas normalizadas utilizadas en nuestro proyecto. Estas tablas están diseñadas para prevenir anomalías en la modificación de datos y facilitar consultas eficientes.
 
-#### Tabla de Áreas
+#### Tabla de Área
 Almacena códigos únicos de áreas y sus nombres correspondientes, eliminando redundancias en otras tablas.
 ```sql
 CREATE TABLE area (
@@ -89,10 +89,10 @@ CREATE TABLE area (
     area_name VARCHAR(50) NOT NULL
 );
 ```
-### Tabla de Reportes
+### Tabla Reporte
 Contiene todos los datos principales de los reportes, incluyendo referencias a las áreas, asegurando relaciones claras y directas.
 ```sql
-CREATE TABLE reports (
+CREATE TABLE report (
     dr_no BIGSERIAL PRIMARY KEY,
     date_rptd TIMESTAMP NOT NULL,
     date_occ TIMESTAMP NOT NULL,
@@ -109,10 +109,10 @@ CREATE TABLE reports (
 );
 ```
 
-### Tabla de Delitos
+### Tabla Delito
 Registra delitos específicos asociados con cada informe, haciendo referencia a los códigos primarios y secundarios de crímenes. Esto permite una segmentación clara del tipo de delito en relación con el informe
 ```sql
-CREATE TABLE crimes (
+CREATE TABLE crime (
     crime_id BIGSERIAL PRIMARY KEY,
     dr_no BIGINT NOT NULL REFERENCES reports(dr_no),
     crm_cd SMALLINT NOT NULL,
@@ -123,10 +123,10 @@ CREATE TABLE crimes (
 
 ```
 
-### Tabla de Víctimas
+### Tabla de Víctima
 Mantiene detalles de las víctimas para cada informe de crimen, ofreciendo un enfoque estructurado para manejar información sensible de las víctimas.
 ```sql
-CREATE TABLE victims (
+CREATE TABLE victim (
     victim_id BIGSERIAL PRIMARY KEY,
     dr_no BIGINT NOT NULL REFERENCES reports(dr_no),
     vict_age SMALLINT,
@@ -136,8 +136,8 @@ CREATE TABLE victims (
 
 ```
 
-### Tabla de Locales
-Detalles sobre los tipos de locales donde ocurren los crímenes. Normalizar esta información reduce duplicaciones y mejora la precisión en los reportes de ubicación.
+### Tabla Lugar
+Detalles sobre los tipos de lugares donde ocurren los crímenes. Normalizar esta información reduce duplicaciones y mejora la precisión en los reportes de ubicación.
 ```sql
 CREATE TABLE premises (
     premis_id BIGSERIAL PRIMARY KEY,
@@ -147,11 +147,11 @@ CREATE TABLE premises (
 
 ```
 
-### Tabla de Armas
+### Tabla de Arma
 Información sobre las armas utilizadas en los crímenes. La separación de esta información en una tabla propia facilita la actualización y el mantenimiento de los datos relacionados con armas.
 
 ```sql
-CREATE TABLE weapons (
+CREATE TABLE weapon (
     weapon_id BIGSERIAL PRIMARY KEY,
     weapon_used_cd SMALLINT,
     weapon_desc VARCHAR(100)
