@@ -6,13 +6,6 @@ CREATE SCHEMA cleaning;
 CREATE TABLE cleaning.crime_data AS
 SELECT * FROM raw.crime_data;
 
---Normalización de Textos y Correcciones Generales:
-UPDATE cleaning.crime_data
-SET 
-    area_name = INITCAP(TRIM(area_name)),
-    crm_cd_desc = INITCAP(TRIM(crm_cd_desc)),
-    location = REGEXP_REPLACE(TRIM(location), '\s+', ' ', 'g'),
-    cross_street = INITCAP(TRIM(cross_street));
 
 --Consolidación de Códigos de Crímenes:
 UPDATE cleaning.crime_data
@@ -30,15 +23,6 @@ DROP COLUMN crm_cd_4;
 
 
 -- Corrección de formatos de fecha y consolidación de tiempos erróneos
-UPDATE cleaning.crime_data
-SET date_occ = (CASE
-    WHEN date_occ::TEXT LIKE '0001%' THEN NULL
-    ELSE date_occ
-END),
-time_occ = (CASE
-    WHEN time_occ < 0 OR time_occ > 2359 THEN NULL
-    ELSE time_occ
-END);
 
 UPDATE cleaning.crime_data
 SET 
