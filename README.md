@@ -81,7 +81,7 @@ La normalización hasta la cuarta forma normal incluye varios pasos clave diseñ
 
 A continuación, se presentan las definiciones de las tablas normalizadas utilizadas en nuestro proyecto. Estas tablas están diseñadas para prevenir anomalías en la modificación de datos y facilitar consultas eficientes.
 
-#### Tabla de Área
+#### Tabla Área
 Almacena códigos únicos de áreas y sus nombres correspondientes, eliminando redundancias en otras tablas.
 ```sql
 CREATE TABLE area (
@@ -123,7 +123,7 @@ CREATE TABLE crime (
 
 ```
 
-### Tabla de Víctima
+### Tabla Víctima
 Mantiene detalles de las víctimas para cada informe de crimen, ofreciendo un enfoque estructurado para manejar información sensible de las víctimas.
 ```sql
 CREATE TABLE victim (
@@ -147,7 +147,7 @@ CREATE TABLE premises (
 
 ```
 
-### Tabla de Arma
+### Tabla Arma
 Información sobre las armas utilizadas en los crímenes. La separación de esta información en una tabla propia facilita la actualización y el mantenimiento de los datos relacionados con armas.
 
 ```sql
