@@ -12,7 +12,7 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
 3. [Estructura del proyecto](#estructura-del-proyecto)
 4. [Carga inicial y análisis preliminar](#levantamiento-del-producto-de-datos)
 5. [Limpieza de datos](#levantamiento-de-api)
-6. [Normalización de datos](#levantamiento-de-dashboard-de-monitoreo)
+6. [Normalización de Datos hasta la Cuarta Forma Normal](#Normalización-de-Datos-hasta-la-Cuarta-Forma-Normal)
 7. [Pruebas Unitarias](#levantamiento-de-dashboard-de-monitoreo)
    - [Almacenamiento](#integrantes-del-equipo)
    - [Limpieza](#descripción-de-los-datos)
@@ -68,3 +68,25 @@ Para insertar los datos en bruto se debe primero correr el script `raw_data_sche
 ```
 # Limpieza de datos
 En este proyecto, hemos implementado un enfoque de "refresh destructivo" centrado en la manipulación de esquemas para garantizar una limpieza efectiva y una reestructuración de los datos. Este método implica la eliminación y recreación de esquemas y tablas dentro de nuestra base de datos para eliminar desviaciones o incoherencias y actualizar la estructura de datos acorde con nuestras necesidades analíticas actuales.
+
+## Normalización de Datos hasta la Cuarta Forma Normal
+
+Después de completar el proceso de limpieza de datos, avanzamos hacia la normalización de los datos hasta la cuarta forma normal. Este proceso es crucial para reducir la redundancia y mejorar la integridad de los datos, asegurando que nuestro esquema de base de datos adhiera a reglas de normalización establecidas.
+
+### Objetivos de Normalización
+La normalización hasta la cuarta forma normal incluye varios pasos clave diseñados para:
+- Eliminar dependencias parciales
+- Eliminar dependencias transitivas
+- Asegurar dependencias multivaluadas
+
+### Estructura de Tablas Normalizadas
+
+A continuación, se presentan las definiciones de las tablas normalizadas utilizadas en nuestro proyecto. Estas tablas están diseñadas para prevenir anomalías en la modificación de datos y facilitar consultas eficientes.
+
+#### Tabla de Áreas
+Almacena códigos únicos de áreas y sus nombres correspondientes, eliminando redundancias en otras tablas.
+```sql
+CREATE TABLE areas (
+    area SMALLINT PRIMARY KEY,
+    area_name VARCHAR(50) NOT NULL
+);
