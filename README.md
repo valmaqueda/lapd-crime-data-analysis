@@ -8,8 +8,9 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
    - [Pregunta analítica a contestar](#pregunta-analítica-a-contestar)
    - [Frecuencia de actualización de los datos](#frecuencia-de-actualización-de-los-datos)
 2. [Carga inicial de datos](#carga-inicial-de-datos)
-   - [Análisis Preliminar](#base-de-datos)
-3. [Estructura del proyecto](#estructura-del-proyecto)
+   - [Información general de la base de datos](#Información-general-de-la-base-de-datos)
+   - [Análisis Preliminar](#Análisis-Preliminar)
+4. [Estructura del proyecto](#estructura-del-proyecto)
 5. [Limpieza de datos](#levantamiento-de-api)
 6. [Normalización de Datos hasta la Cuarta Forma Normal](#Normalización-de-Datos-hasta-la-Cuarta-Forma-Normal)
 7. [Consultas SQL](#orquestación)
@@ -28,6 +29,7 @@ La base de datos de incidentes criminales de Los Ángeles recoge información de
 - 925,721 renglones (cada fila es una inspección realizada)
 - 26 columnas
 
+#### Análisis Preliminar
 A continuación, se describen las columnas clave que conforman este conjunto de datos:
 
 - Identificadores y fechas: Cada incidente está documentado con un número de reporte único (DR_NO), además de la fecha y hora en que se reportó y ocurrió el crimen.
