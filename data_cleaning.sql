@@ -105,32 +105,123 @@ ALTER TABLE raw.crime_data RENAME COLUMN clean_time TO "TIME OCC";
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de area name
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+UPDATE raw.crime_data
+SET "AREA NAME" = INITCAP("AREA NAME");
+UPDATE raw.crime_data
+SET "AREA NAME" = REGEXP_REPLACE("AREA NAME", '\s+', ' ', 'g');
 
+--Verifica que todos los nombres de área sean válidos y consultables, especialmente si se utilizan en reportes o interfaces de usuario.
+SELECT "AREA NAME", COUNT(*) AS count
+FROM raw.crime_data
+GROUP BY "AREA NAME"
+ORDER BY count DESC;
 
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de Vict Age, Vict Sex & Vict Desc
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Reemplazar 0 o valores nulos con NULL
+UPDATE raw.crime_data
+SET "Vict Age" = NULL
+WHERE "Vict Age" = 0 OR "Vict Age" IS NULL;
+
+-- Asegurar que solo M, F, o X estén permitidos, reemplazar otros con 'X'
+UPDATE raw.crime_data
+SET "Vict Sex" = UPPER("Vict Sex"),
+    "Vict Sex" = CASE
+        WHEN "Vict Sex" IN ('M', 'F', 'X') THEN "Vict Sex"
+        ELSE 'X'
+    END;
+
+-- Creación de la tabla de descenso
+CREATE TABLE cleaning.vict_descent (
+    code CHAR(1),
+    description VARCHAR(50)
+);
+
+-- Insertar descripciones de cada código
+INSERT INTO cleaning.vict_descent (code, description) VALUES
+('O', 'Other'),
+('H', 'Hispanic'),
+('B', 'Black'),
+('W', 'White'),
+('C', 'Asian'),
+('A', 'South Asian'),
+('K', 'Korean'),
+('F', 'Filipino),
+('X', 'Not Specified');
+
+-- Asegurar que todos los registros tengan un código válido, reemplazar vacíos con 'X'
+UPDATE raw.crime_data
+SET "Vict Descent" = COALESCE("Vict Descent", 'X')
+WHERE "Vict Descent" IS NULL OR "Vict Descent" NOT IN (SELECT code FROM cleaning.vict_descent);
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Limpieza de Premis Desc
+-- Limpieza de Premis Cd & Premis Desc
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Limpieza de Weapon Used Cd
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Limpieza de Weapon Desc
+-- Limpieza de Weapon Used Cd & Weapon Desc
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Creación de la tabla de códigos de armas
+CREATE TABLE cleaning.weapon_codes (
+    weapon_code INT PRIMARY KEY,
+    description VARCHAR(255)
+);
+
+-- Insertar los códigos y descripciones de armas
+INSERT INTO cleaning.weapon_codes (weapon_code, description) VALUES
+(400, 'STRONG-ARM (HANDS, FIST, FEET OR BODILY FORCE)'),
+(307, 'VEHICLE'),
+(500, 'UNKNOWN WEAPON/OTHER WEAPON'),
+(511, 'VERBAL THREAT'),
+(106, 'UNKNOWN FIREARM'),
+(102, 'HAND GUN'),
+(223, 'UNKNOWN TYPE CUTTING INSTRUMENT'),
+(217, 'SWORD'),
+(308, 'STICK'),
+(304, 'CLUB/BAT'),
+(204, 'FOLDING KNIFE'),
+(513, 'STUN GUN'),
+(207, 'OTHER KNIFE'),
+(109, 'SEMI-AUTOMATIC PISTOL'),
+(113, 'SIMULATED GUN'),
+(205, 'KITCHEN KNIFE'),
+(515, 'PHYSICAL PRESENCE'),
+(512, 'MACE/PEPPER SPRAY'),
+(306, 'ROCK/THROWN OBJECT'),
+(104, 'SHOTGUN'),
+(310, 'CONCRETE BLOCK/BRICK'),
+(200, 'KNIFE WITH BLADE 6INCHES OR LESS'),
+(103, 'RIFLE'),
+(114, 'AIR PISTOL/REVOLVER/RIFLE/BB GUN'),
+(311, 'HAMMER'),
+(219, 'SCREWDRIVER'),
+(101, 'REVOLVER');
+
+-- Actualizar registros donde no hay descripción de arma
+UPDATE raw.crime_data
+SET "Weapon Desc" = (
+    SELECT description
+    FROM cleaning.weapon_codes
+    WHERE weapon_code = raw.crime_data."Weapon Used Cd"
+)
+WHERE "Weapon Desc" IS NULL AND "Weapon Used Cd" IS NOT NULL;
+
+-- Establecer 'UNKNOWN WEAPON/OTHER WEAPON' donde no hay código de arma
+UPDATE raw.crime_data
+SET "Weapon Desc" = 'UNKNOWN WEAPON/OTHER WEAPON'
+WHERE "Weapon Used Cd" IS NULL AND "Weapon Desc" IS NULL;
+
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Limpieza de Status
+-- Limpieza de Status & Status Desc
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Limpieza de Status Desc
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de LOCATION
