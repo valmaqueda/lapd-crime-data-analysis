@@ -143,8 +143,55 @@ WHERE "Vict Descent" IS NULL OR "Vict Descent" NOT IN (SELECT code FROM cleaning
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de Premis Cd & Premis Desc
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
+-- Creación de la tabla de códigos de localización
+CREATE TABLE cleaning.premis_codes (
+    premis_code INT PRIMARY KEY,
+    description VARCHAR(255)
+);
 
-
+-- Insertar los códigos y descripciones de localización
+INSERT INTO cleaning.premis_codes (premis_code, description) VALUES
+(101, 'STREET'),
+(128, 'BUS STOP/LAYOVER'),
+(502, 'MULTI-UNIT DWELLING (APARTMENT, DUPLEX, ETC)'),
+(405, 'CLOTHING STORE'),
+(102, 'SIDEWALK'),
+(501, 'SINGLE FAMILY DWELLING'),
+(248, 'CELL PHONE STORE'),
+(750, 'CYBERSPACE'),
+(203, 'OTHER BUSINESS'),
+(108, 'PARKING LOT'),
+(751, 'WEBSITE'),
+(605, 'AUTOMATED TELLER MACHINE (ATM)'),
+(504, 'OTHER RESIDENCE'),
+(404, 'DEPARTMENT STORE'),
+(221, 'PUBLIC STORAGE'),
+(707, 'GARAGE/CARPORT'),
+(209, 'EQUIPMENT RENTAL'),
+(726, 'POLICE FACILITY'),
+(702, 'OFFICE BUILDING/OFFICE'),
+(801, 'MTA BUS'),
+(729, 'SPECIALTY SCHOOL/OTHER'),
+(737, 'SKATING RINK'),
+(602, 'BANK'),
+(720, 'JUNIOR HIGH SCHOOL'),
+(124, 'BUS STOP'),
+(103, 'ALLEY'),
+(122, 'VEHICLE, PASSENGER/TRUCK'),
+(116, 'OTHER/OUTSIDE'),
+(506, 'ABANDONED BUILDING ABANDONED HOUSE'),
+(212, 'TRANSPORTATION FACILITY (AIRPORT)'),
+(505, 'MOTEL'),
+(701, 'HOSPITAL'),
+(710, 'OTHER PREMISE'),
+(120, 'STORAGE SHED'),
+(145, 'MAIL BOX'),
+(735, 'NIGHT CLUB (OPEN EVENINGS ONLY)'),
+(503, 'HOTEL'),
+(104, 'DRIVEWAY'),
+(222, 'LAUNDROMAT'),
+(119, 'PORCH, RESIDENTIAL'),
+(406, 'OTHER STORE');
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de Weapon Used Cd & Weapon Desc
@@ -199,59 +246,6 @@ UPDATE raw.crime_data
 SET "Weapon Desc" = 'UNKNOWN WEAPON/OTHER WEAPON'
 WHERE "Weapon Used Cd" IS NULL AND "Weapon Desc" IS NULL;
 
-
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Limpieza de Status & Status Desc
-/* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
--- Creación de la tabla de códigos de localización
-CREATE TABLE cleaning.premis_codes (
-    premis_code INT PRIMARY KEY,
-    description VARCHAR(255)
-);
-
--- Insertar los códigos y descripciones de localización
-INSERT INTO cleaning.premis_codes (premis_code, description) VALUES
-(101, 'STREET'),
-(128, 'BUS STOP/LAYOVER'),
-(502, 'MULTI-UNIT DWELLING (APARTMENT, DUPLEX, ETC)'),
-(405, 'CLOTHING STORE'),
-(102, 'SIDEWALK'),
-(501, 'SINGLE FAMILY DWELLING'),
-(248, 'CELL PHONE STORE'),
-(750, 'CYBERSPACE'),
-(203, 'OTHER BUSINESS'),
-(108, 'PARKING LOT'),
-(751, 'WEBSITE'),
-(605, 'AUTOMATED TELLER MACHINE (ATM)'),
-(504, 'OTHER RESIDENCE'),
-(404, 'DEPARTMENT STORE'),
-(221, 'PUBLIC STORAGE'),
-(707, 'GARAGE/CARPORT'),
-(209, 'EQUIPMENT RENTAL'),
-(726, 'POLICE FACILITY'),
-(702, 'OFFICE BUILDING/OFFICE'),
-(801, 'MTA BUS'),
-(729, 'SPECIALTY SCHOOL/OTHER'),
-(737, 'SKATING RINK'),
-(602, 'BANK'),
-(720, 'JUNIOR HIGH SCHOOL'),
-(124, 'BUS STOP'),
-(103, 'ALLEY'),
-(122, 'VEHICLE, PASSENGER/TRUCK'),
-(116, 'OTHER/OUTSIDE'),
-(506, 'ABANDONED BUILDING ABANDONED HOUSE'),
-(212, 'TRANSPORTATION FACILITY (AIRPORT)'),
-(505, 'MOTEL'),
-(701, 'HOSPITAL'),
-(710, 'OTHER PREMISE'),
-(120, 'STORAGE SHED'),
-(145, 'MAIL BOX'),
-(735, 'NIGHT CLUB (OPEN EVENINGS ONLY)'),
-(503, 'HOTEL'),
-(104, 'DRIVEWAY'),
-(222, 'LAUNDROMAT'),
-(119, 'PORCH, RESIDENTIAL'),
-(406, 'OTHER STORE');
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++ */
 -- Limpieza de Status y Status Desc
