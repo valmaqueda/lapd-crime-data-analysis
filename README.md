@@ -86,7 +86,78 @@ A continuación, se presentan las definiciones de las tablas normalizadas utiliz
 #### Tabla de Áreas
 Almacena códigos únicos de áreas y sus nombres correspondientes, eliminando redundancias en otras tablas.
 ```sql
-CREATE TABLE areas (
+CREATE TABLE area (
     area SMALLINT PRIMARY KEY,
     area_name VARCHAR(50) NOT NULL
 );
+```
+### Tabla de Reportes
+Contiene todos los datos principales de los reportes, incluyendo referencias a las áreas, asegurando relaciones claras y directas.
+```sql
+CREATE TABLE reports (
+    dr_no BIGSERIAL PRIMARY KEY,
+    date_rptd TIMESTAMP NOT NULL,
+    date_occ TIMESTAMP NOT NULL,
+    time_occ INT NOT NULL,
+    area SMALLINT NOT NULL REFERENCES areas(area),
+    rpt_dist_no SMALLINT NOT NULL,
+    part_1_2 SMALLINT NOT NULL,
+    location VARCHAR(255) NOT NULL,
+    cross_street VARCHAR(255),
+    lat FLOAT NOT NULL,
+    lon FLOAT NOT NULL,
+    status CHAR(2) NOT NULL,
+    status_desc VARCHAR(100) NOT NULL
+);
+```
+
+### Tabla de Delitos
+Registra delitos específicos asociados con cada informe, haciendo referencia a los códigos primarios y secundarios de crímenes. Esto permite una segmentación clara del tipo de delito en relación con el informe
+```sql
+CREATE TABLE crimes (
+    crime_id BIGSERIAL PRIMARY KEY,
+    dr_no BIGINT NOT NULL REFERENCES reports(dr_no),
+    crm_cd SMALLINT NOT NULL,
+    crm_cd_desc VARCHAR(255) NOT NULL,
+    crm_cd_1 SMALLINT NOT NULL,
+    crm_cd_2 SMALLINT
+);
+
+```
+
+### Tabla de Víctimas
+Mantiene detalles de las víctimas para cada informe de crimen, ofreciendo un enfoque estructurado para manejar información sensible de las víctimas.
+```sql
+CREATE TABLE victims (
+    victim_id BIGSERIAL PRIMARY KEY,
+    dr_no BIGINT NOT NULL REFERENCES reports(dr_no),
+    vict_age SMALLINT,
+    vict_sex CHAR(1),
+    vict_descent CHAR(2) NOT NULL
+);
+
+```
+
+### Tabla de Locales
+Detalles sobre los tipos de locales donde ocurren los crímenes. Normalizar esta información reduce duplicaciones y mejora la precisión en los reportes de ubicación.
+```sql
+CREATE TABLE premises (
+    premis_id BIGSERIAL PRIMARY KEY,
+    premis_cd SMALLINT NOT NULL,
+    premis_desc VARCHAR(100) NOT NULL
+);
+
+```
+
+### Tabla de Armas
+Información sobre las armas utilizadas en los crímenes. La separación de esta información en una tabla propia facilita la actualización y el mantenimiento de los datos relacionados con armas.
+
+```sql
+CREATE TABLE weapons (
+    weapon_id BIGSERIAL PRIMARY KEY,
+    weapon_used_cd SMALLINT,
+    weapon_desc VARCHAR(100)
+);
+```s
+
+
