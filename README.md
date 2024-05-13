@@ -66,4 +66,5 @@ Para insertar los datos en bruto se debe primero correr el script `raw_data_sche
     FROM 'path_to_downloaded_csv'
     WITH (FORMAT CSV, HEADER true, DELIMITER ',');
 ```
-# Hello
+# Limpieza de datos
+En este proyecto, hemos implementado un enfoque de "refresh destructivo" centrado en la manipulación de esquemas para garantizar una limpieza efectiva y una reestructuración de los datos. Este método implica la eliminación y recreación de esquemas y tablas dentro de nuestra base de datos para eliminar desviaciones o incoherencias y actualizar la estructura de datos acorde con nuestras necesidades analíticas actuales.
