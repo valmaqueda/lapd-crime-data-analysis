@@ -12,6 +12,7 @@ SELECT dr_no, COUNT(*)
 FROM raw.crime_data
 GROUP BY dr_no
 HAVING COUNT(*) > 1;
+-- no hay duplicados
 
 -- Contar crímenes por tipo
 SELECT crm_cd_desc, COUNT(*) AS total
@@ -45,19 +46,13 @@ WHERE weapon_desc IS NOT NULL
 GROUP BY weapon_desc
 ORDER BY total DESC;
 
---Este ejemplo busca patrones numéricos que podrían representar códigos o clasificaciones dentro de descripciones textuales
-SELECT crime_description,
-       CAST(UNNEST(REGEXP_MATCHES(crime_description, '(?<=^|\|\s*)(\d+)\.', 'g')) AS INT) AS crime_code
-FROM raw.crime_data
-WHERE crime_description IS NOT NULL
-LIMIT 10;
 
 -- Identificar y contar las menciones de términos comunes en las descripciones de crímenes
 SELECT
     CASE
-        WHEN LOWER(crime_description) LIKE '%theft%' THEN 'Theft'
-        WHEN LOWER(crime_description) LIKE '%weapon%' THEN 'Weapon'
-        WHEN LOWER(crime_description) LIKE '%assault%' THEN 'Asault'
+        WHEN LOWER(premis_desc) LIKE '%theft%' THEN 'Theft'
+        WHEN LOWER(premis_desc) LIKE '%weapon%' THEN 'Weapon'
+        WHEN LOWER(premis_desc) LIKE '%assault%' THEN 'Asault'
         ELSE 'Otro'
     END AS Tipo_de_Crimen,
     COUNT(*) AS Total
