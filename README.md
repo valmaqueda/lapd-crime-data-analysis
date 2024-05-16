@@ -13,9 +13,9 @@ Análisis de Datos Criminales de Los Ángeles (2020-Presente): Este repositorio 
 4. [Estructura del proyecto](#estructura-del-proyecto)
 5. [Limpieza de datos](#levantamiento-de-api)
 6. [Normalización de Datos hasta la Cuarta Forma Normal](#Normalización-de-Datos-hasta-la-Cuarta-Forma-Normal)
-7. [Consultas SQL](#orquestación)
+7. [Consultas SQL](#Consultas-SQL)
    - [Ejemplo: Generar metadatos de predicción](#ejemplo-generar-metadatos-de-predicción)
-8. [Creación de atributos para entrenamiento de modelos](#pruebas-unitarias)
+8. [Creación de atributos para entrenamiento de modelos](#Creación-de-atributos-para-entrenamiento-de-modelos)
 
 # Proyecto    
 ### Integrantes del equipo:
