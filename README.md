@@ -156,6 +156,39 @@ CREATE TABLE weapon (
     weapon_used_cd SMALLINT,
     weapon_desc VARCHAR(100)
 );
-```s
+```
+
+ ## Consultas SQL
+### Ejemplo: Generar metadatos de predicción
+
+1. Consulta de los Tipos de Crímenes Más Comunes en Estaciones de MTA
+   Esta consulta es crucial porque identifica los tipos de crímenes más prevalentes en entornos de estaciones de metro, un aspecto clave para desarrollar estrategias de prevención específicas y dirigidas. Al entender qué tipos de crímenes ocurren más frecuentemente, las autoridades pueden priorizar recursos, planificar intervenciones y diseñar programas educativos que aborden estos crímenes específicos, como la invasión de propiedad (trespassing), asaltos simples y asaltos agravados con armas.
+
+2. Consulta de Estaciones de Metro con la Mayor Incidencia de Crímenes
+   Identificar las estaciones de metro específicas con la mayor incidencia de crímenes permite a las autoridades y a los planificadores urbanos enfocar sus esfuerzos en estas áreas. Esta consulta proporciona datos concretos sobre los lugares específicos donde se concentran los crímenes, facilitando la asignación de recursos y la implementación de medidas de seguridad más dirigidas y eficaces.
+
+3. Correlación entre Tipos de Crimen y Uso de Armas en Estaciones de Metro
+   Esta consulta explora la relación entre los tipos de crímenes cometidos y las armas utilizadas, ofreciendo insights sobre la naturaleza de los crímenes en las estaciones de metro. Entender esta correlación es fundamental para la capacitación de los oficiales de seguridad y la policía, permitiéndoles prepararse mejor para las situaciones específicas que pueden enfrentar en estas locaciones.
+
+4. Consulta para Encontrar el Top 5 de Áreas con Más Crímenes
+   Esta consulta proporciona una clasificación de las áreas dentro de la jurisdicción que experimentan los mayores niveles de actividad criminal. Al identificar estas áreas, las autoridades pueden comprender mejor dónde concentrar sus esfuerzos de vigilancia y qué comunidades podrían beneficiarse de programas de prevención y educación adicionales.
 
 
+## Creación de atributos para entrenamiento de modelos
+1. Hora del Día y Día de la Semana
+   - Proceso de Creación: Para capturar patrones de crimen en diferentes momentos del día y durante la semana, se            extrajeron dos atributos clave de la columna date_occ (fecha y hora de ocurrencia del crimen). El primero es la         hour_of_day, que representa la hora específica del día cuando ocurrió el crimen, extraída directamente de la
+     componente de hora del timestamp. El segundo atributo, day_of_week, refleja el día de la semana en formato textual      (como 'Lunes', 'Martes', etc.), lo que ayuda a analizar tendencias semanales en la actividad delictiva
+  
+2. Temporada del Año
+   - Proceso de Creación: Se clasificó cada crimen según la temporada del año, basada en el mes extraído del date_occ.       Esta clasificación divide el año en cuatro categorías estacionales: primavera, verano, otoño e invierno, lo que         permite estudiar cómo las variaciones estacionales afectan la incidencia del crimen.
+
+3. Tipo de Ubicación Normalizada
+   - Proceso de Creación: Este atributo categoriza el lugar del crimen en términos más generales utilizando                  premis_desc, simplificando las descripciones detalladas de ubicación a categorías amplias como 'Educacional',           'Financiero', 'Hospitalidad', etc. Esto se logra mediante la aplicación de condiciones específicas en una       
+     declaración CASE para identificar patrones comunes en las descripciones.
+     
+4. Densidad de Crimen en la Zona
+   - Proceso de Creación: Este atributo mide la concentración de crímenes en áreas geográficas específicas, calculando       el número de incidentes dentro de un área definida. La implementación de este atributo puede requerir el uso de         funciones GIS para determinar la proximidad física entre incidentes, aunque una simplificación puede ser contar la      cantidad de crímenes en cada ubicación exacta o aproximada.
+
+5. Modus Operandi Codificado
+   - Proceso de Creación: El modus operandi de cada crimen, originalmente listado en mocodes, se transforma en una           representación más manejable y analizable. Esto se logra agrupando y codificando los diversos códigos listados en 
+     cada registro en una única cadena o representación numérica que resume el conjunto de tácticas empleadas.
